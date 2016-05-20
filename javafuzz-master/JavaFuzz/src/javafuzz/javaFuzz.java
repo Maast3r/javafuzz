@@ -8,17 +8,14 @@ package javafuzz;
 
 import gnu.getopt.Getopt;
 
-import java.io.File;
+import java.io.DataInputStream;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Type;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.io.*;
 
 public class javaFuzz {
 
@@ -117,7 +114,7 @@ public class javaFuzz {
 	public static String[][] astt;
 
 	public static void main(String[] args) {
-		args = new String[] { "-c", "com.Evolution.logic.Card", "-v" };
+		args = new String[] { "-c", "com.Evolution.logic.Game", "-v"};
 		String[] argv = args;
 		Getopt g = new Getopt("JavaFuzz", argv,
 				":vf:c:b:e:i:n:p:g:s:r:a:k:l:mou:");
@@ -125,7 +122,7 @@ public class javaFuzz {
 		String arg;
 		int vv = 0, rr = 0;
 		String ff = "", ee = "", cc = "", ss = "", ii = "";
-
+		attackMethods = 1;
 		// Command Line Arguments
 		while ((c = g.getopt()) != -1) {
 			switch (c) {
@@ -469,7 +466,8 @@ public class javaFuzz {
 	public static void summarize(String className, int v) {
 		Exceed = 1;
 		Class cls = null;
-		className = "javafuzz.javaFuzz";
+//		className = "javafuzz.javaFuzz";
+//		className = "com.Evolution.logic.Game";
 		v = 1;
 		try {
 			System.out.println("entered classname = " + className);
@@ -651,12 +649,25 @@ public class javaFuzz {
 				}
 
 				else {
+					// 
+					//
+					//
+					// METHOD FUZZING
+					//
+					//
+					//
 					System.out.print("\nMethod -> \t" + allMethods[a].getName()
 							+ " [" + cls.getName() + "]\nTypes -> \t(");
 					for (int k = 0; k < cc.length; k++) {
-						System.out.print(" " + cc[k].getName());
+						String print = "";
+						if(k != 0){
+							print += ", ";
+						}
+						System.out.print(print + cc[k].getName());
+						
 					}
-					System.out.print(" )\n");
+					System.out.print(")\n");
+					
 					help.BeefConstructor(cs, args, allMethods[a], tmpCLS,
 							MethodArgs, v, oo);
 				}
