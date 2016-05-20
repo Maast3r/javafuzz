@@ -114,7 +114,7 @@ public class javaFuzz {
 	public static String[][] astt;
 
 	public static void main(String[] args) {
-		args = new String[] { "-c", "com.Evolution.logic.Game", "-v"};
+		args = new String[] { "-c", "com.Evolution.logic.Card", "-v", "-m"};
 		String[] argv = args;
 		Getopt g = new Getopt("JavaFuzz", argv,
 				":vf:c:b:e:i:n:p:g:s:r:a:k:l:mou:");
